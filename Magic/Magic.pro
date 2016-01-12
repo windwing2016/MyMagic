@@ -13,7 +13,8 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    test1.cpp
 
 HEADERS  += mainwindow.h \
     test.h \
