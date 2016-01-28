@@ -14,10 +14,10 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DMCF_CORE_DLL -DMCF_CORE_DLL -D_CRT_SECURE_NO_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -W3 $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -O2 -MD -GR -W3 -w34100 -w34189 -EHsc $(DEFINES)
-INCPATH       = -I"..\Toolkits\boost_1_56_0" -I"..\Toolkits\opencv_2_4_9\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtANGLE" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore" -I"release" -I"." -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013"
+INCPATH       = -I"..\Toolkits\boost_1_56_0" -I"..\..\.." -I"..\Toolkits\opencv_2_4_9\include" -I"..\Toolkits\opencv_2_4_9\include\opencv" -I"..\Toolkits\opencv_2_4_9\include\opencv2" -I"..\Toolkits\boost_1_56_0" -I"..\Toolkits\opencv_2_4_9" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtANGLE" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore" -I"release" -I"." -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /INCREMENTAL:NO /DLL
-LIBS          = /LIBPATH:D:\Qt\Qt5.3.2\5.3\msvc2013\lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Widgets.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Gui.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Core.lib libEGL.lib libGLESv2.lib gdi32.lib user32.lib 
+LIBS          = /LIBPATH:..\Toolkits\boost_1_56_0\stage\lib\ ..\Toolkits\boost_1_56_0\stage\lib\\libboost_log-vc120-mt-1_56.lib /LIBPATH:..\Toolkits\opencv_2_4_9\x86\vc12\lib ..\Toolkits\opencv_2_4_9\x86\vc12\lib\opencv_core249.lib ..\Toolkits\opencv_2_4_9\x86\vc12\lib\opencv_highgui249.lib ..\Toolkits\opencv_2_4_9\x86\vc12\lib\opencv_imgproc249.lib /LIBPATH:D:\Qt\Qt5.3.2\5.3\msvc2013\lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Widgets.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Gui.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Core.lib libEGL.lib libGLESv2.lib gdi32.lib user32.lib 
 QMAKE         = D:\Qt\Qt5.3.2\5.3\msvc2013\bin\qmake.exe
 IDC           = idc
 IDL           = midl
@@ -325,7 +325,7 @@ release\moc_NotifiableProperties.cpp: ..\McfCore\mcf.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
 		..\McfCore\mcf\ViewModels\NotifiableProperties.h
-	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\mcf\ViewModels\NotifiableProperties.h -o release\moc_NotifiableProperties.cpp
+	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\mcf\ViewModels\NotifiableProperties.h -o release\moc_NotifiableProperties.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:

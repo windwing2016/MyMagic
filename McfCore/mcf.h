@@ -4,8 +4,11 @@
 #include <string>
 #include <iostream>
 #include <vector>
-#include <boost/config/compiler/visualc.hpp>
-#include <opencv2/opencv.hpp>
+#include "boost/config/compiler/visualc.hpp"
+//#include <../boost_1_56_0/boost/config/compiler/visualc.hpp>
+//#include <../Toolkits/boost_1_56_0/boost/config/compiler/visualc.hpp>
+#include "opencv2/opencv.hpp"
+//#include <../opencv_2_4_9/include/opencv2/opencv.hpp>
 
 // Define standard data types for portability.
 typedef bool				MCF_BOOL;

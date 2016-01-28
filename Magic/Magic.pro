@@ -13,6 +13,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Magic
 TEMPLATE = app
 
+INCLUDEPATH +=../Toolkits/boost_1_56_0 /
+INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/
 
 DESTDIR+= ../bin
 #  DESTDIR 的作用  指定生成的应用程序放置的目录
