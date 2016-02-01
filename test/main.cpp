@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
   //  qRegisterMetaType<Test>("Test");
       Test temp;
 //      MCF_DOUBLE result=temp.add(3.3,3.3);
-      temp.add(3,4);
+//   MCF_DOUBLE result=   temp.add(3.3,4.3);
 //    qDebug()<<result;
 
 

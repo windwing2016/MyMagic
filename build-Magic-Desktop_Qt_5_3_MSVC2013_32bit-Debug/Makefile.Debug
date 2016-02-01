@@ -14,7 +14,7 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DQT_WIDGETS_LIB -DQT_NETWORK_LIB -DQT_XML_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -Zi -MDd -W3 /Fd..\bin\Magic.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fd..\bin\Magic.pdb $(DEFINES)
-INCPATH       = -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtNetwork" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtXml" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtANGLE" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore" -I"debug" -I"." -I"." -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013"
+INCPATH       = -I"..\Toolkits\boost_1_56_0" -I"..\..\.." -I"..\Toolkits\opencv_2_4_9\include" -I"..\Toolkits\boost_1_56_0" -I"..\..\.." -I"..\Toolkits\opencv_2_4_9\include" -I"..\Toolkits\opencv_2_4_9\include\opencv" -I"..\Toolkits\opencv_2_4_9\include\opencv2" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtNetwork" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtXml" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtANGLE" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore" -I"debug" -I"." -I"." -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /SUBSYSTEM:WINDOWS "/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'"
 LIBS          = /LIBPATH:D:\Qt\Qt5.3.2\5.3\msvc2013\lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\qtmaind.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Widgetsd.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Networkd.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Xmld.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Guid.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Cored.lib libEGLd.lib libGLESv2d.lib gdi32.lib user32.lib 
@@ -277,7 +277,7 @@ debug\moc_mainwindow.cpp: ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMa
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qtabwidget.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qicon.h \
 		..\Magic\mainwindow.h
-	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/Magic -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtNetwork -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtXml -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\Magic\mainwindow.h -o debug\moc_mainwindow.cpp
+	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/Magic -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtNetwork -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtXml -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\Magic\mainwindow.h -o debug\moc_mainwindow.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -409,7 +409,36 @@ debug\main.obj: ..\Magic\main.cpp ..\Magic\mainwindow.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qeventloop.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qdesktopwidget.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qguiapplication.h \
-		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qinputmethod.h
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qinputmethod.h \
+		..\McfCore\mcf.h \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\visualc.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\opencv.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\core_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\types_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\core.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\version.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\operations.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\mat.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\miniflann.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\defines.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\config.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\imgproc_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\types_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\imgproc.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\photo\photo.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\photo\photo_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\video.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\tracking.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\background_segm.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\features2d\features2d.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\objdetect\objdetect.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\calib3d\calib3d.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\ml\ml.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\contrib.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\retina.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\openfabmap.hpp
 
 debug\mainwindow.obj: ..\Magic\mainwindow.cpp ..\Magic\mainwindow.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMainWindow \

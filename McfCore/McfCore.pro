@@ -30,14 +30,15 @@ DEFINES += MCF_CORE_DLL _CRT_SECURE_NO_WARNINGS
 INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/
 INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/opencv/
 INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/opencv2/
-#添加这几个目录是为了在打开opencv的时候无法找到其他的头文件
+#添加这几个目录是为了在打开opencv的时候无法找到其他的头文�?
 
 
 HEADERS += mcfcore.h\
         mcfcore_global.h \
     mcf.h \
     mcf/ViewModels/NotifiableProperties.h \
-    mcf/UI/BindHelper.h
+    mcf/UI/BindHelper.h \
+    McfContext.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

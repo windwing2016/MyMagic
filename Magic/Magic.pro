@@ -16,6 +16,12 @@ TEMPLATE = app
 INCLUDEPATH +=../Toolkits/boost_1_56_0 /
 INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/
 
+INCLUDEPATH +=../Toolkits/boost_1_56_0 /
+INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/
+INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/opencv/
+INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/opencv2/
+
+
 DESTDIR+= ../bin
 #  DESTDIR 的作用  指定生成的应用程序放置的目录
 

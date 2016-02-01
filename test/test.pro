@@ -37,8 +37,6 @@ TEMPLATE = app
 #win32:CONFIG(release, debug|release): LIBS += -L$$BIN_DIR/release/ -lMcfCore
 #else:win32:CONFIG(debug, debug|release): LIBS += -L$$BIN_DIR/debug/ -lMcfCore
 
- LIBS += -L../bin  -lMcfCore
-
-
+LIBS += -L../bin  -lMcfCore
 
 SOURCES += main.cpp
