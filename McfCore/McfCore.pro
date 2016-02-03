@@ -13,7 +13,10 @@ TEMPLATE = lib
 DEFINES += MCF_CORE_DLL
 
 SOURCES += mcfcore.cpp \
-    mcf/ViewModels/NotifiableProperties.cpp
+    mcf/ViewModels/NotifiableProperties.cpp \
+    McfContext.cpp \
+    mcf/ViewModels/ViewModelbase.cpp \
+    mcf/ViewModels/IMessageView.cpp
 
 DESTDIR+= ../bin
 
@@ -38,7 +41,10 @@ HEADERS += mcfcore.h\
     mcf.h \
     mcf/ViewModels/NotifiableProperties.h \
     mcf/UI/BindHelper.h \
-    McfContext.h
+    McfContext.h \
+    IDrive.h \
+    mcf/ViewModels/ViewModelbase.h \
+    mcf/ViewModels/IMessageView.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

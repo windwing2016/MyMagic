@@ -1,0 +1,4 @@
+#ifndef IMESSAGEVIEW_H
+#define IMESSAGEVIEW_H
+
+#endif // IMESSAGEVIEW_H
