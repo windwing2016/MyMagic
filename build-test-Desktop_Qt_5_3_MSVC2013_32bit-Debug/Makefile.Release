@@ -298,7 +298,8 @@ release\main.obj: ..\test\main.cpp ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCo
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		..\McfCore\mcf\ViewModels\NotifiableProperties.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
-		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
+		..\test\GetApplicationPath.h
 
 ####### Install
 

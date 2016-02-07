@@ -40,3 +40,6 @@ TEMPLATE = app
 LIBS += -L../bin  -lMcfCore
 
 SOURCES += main.cpp
+
+HEADERS += \
+    GetApplicationPath.h

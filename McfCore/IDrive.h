@@ -1,10 +1,13 @@
 #ifndef IDRIVE_H
 #define IDRIVE_H
 
-#include <mcf.h>
-#include<mcfcore.h>
+#include <../McfCore/mcf.h>
+#include <../McfCore/mcfcore.h>
 
 NS_MCFC_BEGIN
+
+using namespace   std;
+
 class MCFC_API IDriver :public QObject
 {
     Q_OBJECT

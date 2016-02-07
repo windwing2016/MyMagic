@@ -3,10 +3,12 @@
 
 #include <string>
 #include <memory>
-#include <mcf.h>
-#include <mcfcore.h>
-#include <IDrive.h>
-#include <mcf/ViewModels/NotifiableProperties.h>
+#include <../McfCore/mcf.h>
+#include <../McfCore/mcfcore.h>
+#include <../McfCore/IDrive.h>
+#include <../McfCore/mcf/ViewModels/NotifiableProperties.h>
+#include <../McfCore/mcf/ViewModels/ViewModelbase.h>
+
 
 NS_MCFC_BEGIN
 
@@ -22,12 +24,12 @@ public:
         return reinterpret_cast<T*>(_context);
     }
 
+    static McfContext *Current();
 
 private:
-    static McfContext *_context;
     //Get the system folder paths
     static MCF_STRING GetBinFolder();
-    static MCF_STRING GetConfigFolder();
+    static MCF_STRING GetConfigFolder();   //get system config folder
     static MCF_STRING GetDataFolder();
     static MCF_STRING GetLogFolder();
     static MCF_STRING GetLangFolder();
@@ -59,6 +61,7 @@ private:
     static McfContext *_context;
     MCF_BOOL _EMORequest;
     QMutex _lock;
+    ViewModelBase *_mainViewModel;
 
 
 
