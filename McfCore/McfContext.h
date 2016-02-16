@@ -26,14 +26,14 @@ public:
 
     static McfContext *Current();
 
-private:
+
     //Get the system folder paths
     static MCF_STRING GetBinFolder();
     static MCF_STRING GetConfigFolder();   //get system config folder
-    static MCF_STRING GetDataFolder();
+    static MCF_STRING GetDataFolder();     //
     static MCF_STRING GetLogFolder();
     static MCF_STRING GetLangFolder();
-    static MCF_STRING GetAppVersion();
+   // static MCF_STRING GetAppVersion();
 
     void GetDrivers(vector<IDriver *> &drivers);
 

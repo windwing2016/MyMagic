@@ -52,6 +52,7 @@ private:
     static IPopupViewHandler *g_popuphandler;
 };
 //------------------------------------------------
+/*
 class MCFC_API ErrorStateViewModel:public ViewModelBase
 {
  Q_OBJECT
@@ -69,7 +70,7 @@ private:
     std::vector<MCF_RESPONSE> _errors;
 };
 
-
+*/
 
 
 

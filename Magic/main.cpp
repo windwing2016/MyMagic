@@ -3,6 +3,11 @@
 #include <../McfCore/mcf.h>
 #include <QTextCodec>
 #include <../McfCore/McfContext.h>
+#include <QDebug>
+//#include <qdebug.h>
+
+using namespace Mcf;
+
 
 int main(int argc, char *argv[])
 {
@@ -19,15 +24,28 @@ int main(int argc, char *argv[])
     QTextCodec::setCodecForLocale(codec);
 
     MCF_STRING lang=_L("EN");
+#if 0
     try
     {
         //set application version
-        QApplication::setApplicationVersion(QString::fromStdWString(McfContext::GetAppVersion()));
+       // QApplication::setApplicationVersion(QString::fromStdWString(McfContext::GetAppVersion()));
+        //get configuration folder
+     //   MCF_STRING binFolder=McfContext::GetBinFolder();
+        //std::wcout<<binFolder<<endl;
+        qDebug() << "binFolder";
 
 
     }
 
+    catch(...)
+    {
 
+    }
+#endif
+    //get configuration folder
+    MCF_STRING binFolder=McfContext::GetBinFolder();
+  //  std::wcout<<binFolder<<endl;
+    qDebug() << binFolder;
     MainWindow w;
     w.show();
 

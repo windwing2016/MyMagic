@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <Windows.h>
 #include <../McfCore/IDrive.h>
+#include <exception>
 
 using namespace Mcf;
 
@@ -55,7 +56,7 @@ MCF_STRING McfContext::GetBinFolder()
     MCF_STRING exeFilePath=filePath; //the application execute path
     MCF_STRING directory=_L("");
     MCF_STRING fileName=_L("");
-    const size_t last_slash_idx=exeFilePath.rfind("\\");
+    const size_t last_slash_idx=exeFilePath.rfind('\\');
     //note:  rfind is the string function is reverse lookup the string
     //return the taget char position
     //last_slash_idx value is "\\" at the string exefilepath
@@ -66,9 +67,96 @@ MCF_STRING McfContext::GetBinFolder()
     }
     return directory;
 }
+//-----------------------------------------------
+MCF_STRING McfContext::GetConfigFolder()
+{
+   MCF_STRING binFolder=GetBinFolder();
+   if(binFolder.length()==0)
+       return _L("");
+   return binFolder +_L("\\Config");
+
+}
+
+//------------------------------------
+MCF_STRING McfContext::GetDataFolder()
+{
+    MCF_STRING binFolder=GetBinFolder();
+    if(binFolder.length()==0)
+        return _L("");
+    //get the directory for data files
+    MCF_STRING dataFolder=binFolder+_L("\\Data");
+    //make sure the folder exists
+    ::CreateDirectory(dataFolder.c_str(),NULL);
+    return dataFolder;
+}
+//----------------------------------------------
+
+MCF_STRING McfContext::GetLogFolder()
+{
+    MCF_STRING binFolder=GetBinFolder();
+    if(binFolder.length()==0)
+        return _L("");
+    //get the directory for log files
+    MCF_STRING logFolder=binFolder+_L("\\Log");
+    //make sure the folder exists
+    ::CreateDirectory(logFolder.c_str(),NULL);
+    return logFolder;
+}
+//----------------------------------------------------
+MCF_STRING McfContext::GetLangFolder()
+{
+    MCF_STRING binFolder = GetBinFolder();
+    if (binFolder.length() == 0) return _L("");
+    return binFolder + _L("\\Lang");
+}
+//---------------------------------------------------
+//------------------------------------------------------------------------------------------------------
+/*
+MCF_STRING Mcf::McfContext::GetAppVersion()
+{
+    MCF_TCHAR filePath[MAX_PATH];
+    HMODULE module = ::GetModuleHandle(NULL);
+    if (module == NULL)
+    {
+        return _L("");
+    }
+
+    if (!::GetModuleFileName(module, filePath, MAX_PATH))
+    {
+        return _L("");
+    }
+
+    DWORD  verHandle = NULL;
+    UINT   size      = 0;
+    LPBYTE lpBuffer  = NULL;
+    DWORD  verSize   = ::GetFileVersionInfoSize(filePath, &verHandle);
 
 
+    if (verSize == NULL) return _L("");
 
+    LPSTR verData = new char[verSize];
 
-
+    MCF_STRINGSTREAM oss;
+    if (::GetFileVersionInfo(filePath, verHandle, verSize, verData))
+    {
+        if (::VerQueryValue(verData, _L("\\"), (VOID FAR* FAR*)&lpBuffer, &size))
+        {
+            if (size)
+            {
+                VS_FIXEDFILEINFO *verInfo = (VS_FIXEDFILEINFO *)lpBuffer;
+                if (verInfo->dwSignature == 0xfeef04bd)
+                {
+                    oss << ((verInfo->dwFileVersionMS >> 16) & 0xffff) << "."
+                        << ((verInfo->dwFileVersionMS >>  0) & 0xffff) << "."
+                        << ((verInfo->dwFileVersionLS >> 16) & 0xffff) << "."
+                        << ((verInfo->dwFileVersionLS >>  0) & 0xffff);
+                }
+            }
+        }
+    }
+    delete[] verData;
+    return oss.str();
+}
+*/
+//------------------------------------------------
 

@@ -32,7 +32,7 @@ MCF_STRING  GetBinFolder()
        fileName = exeFilePath.substr(last_slash_idx + 1);
    }
 
-   return fileName;
+   return directory;
 
 }
 

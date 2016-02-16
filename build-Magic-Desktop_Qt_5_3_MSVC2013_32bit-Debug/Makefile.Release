@@ -426,7 +426,25 @@ release\main.obj: ..\Magic\main.cpp ..\Magic\mainwindow.h \
 		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui.hpp \
 		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\contrib.hpp \
 		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\retina.hpp \
-		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\openfabmap.hpp
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\openfabmap.hpp \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QTextCodec \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtextcodec.h \
+		..\McfCore\McfContext.h \
+		..\McfCore\mcfcore.h \
+		..\McfCore\mcfcore_global.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QObject \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QLocale \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
+		..\McfCore\IDrive.h \
+		..\McfCore\mcf\ViewModels\NotifiableProperties.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
+		..\McfCore\mcf\ViewModels\ViewModelbase.h \
+		..\McfCore\mcf\ViewModels\IMessageView.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug
 
 release\mainwindow.obj: ..\Magic\mainwindow.cpp ..\Magic\mainwindow.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QMainWindow \
