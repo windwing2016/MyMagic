@@ -41,7 +41,7 @@ public:
 
     virtual MCF_BOOL Initialize()=0;
 
-    MCF_BOOL GetEMOResquest();
+   // MCF_BOOL GetEMOResquest();
 
     void SetEMORequest(MCF_BOOL request);
 

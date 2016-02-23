@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<bootstrap>
+	<sysName>MagicA 200e</sysName>
+	<lang>EN</lang>
+	<logLevel>INFO</logLevel>	<!-- emergency, alert, critical, error, warning, notice, info, debug -->
+</bootstrap>

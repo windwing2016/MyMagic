@@ -311,7 +311,12 @@ debug\main.obj: ..\test\main.cpp ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore
 		..\McfCore\mcf\ViewModels\NotifiableProperties.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug \
-		..\test\GetApplicationPath.h
+		..\test\GetApplicationPath.h \
+		..\McfCore\McfContext.h \
+		..\McfCore\IDrive.h \
+		..\McfCore\mcf\ViewModels\ViewModelbase.h \
+		..\McfCore\mcf\ViewModels\IMessageView.h \
+		..\test\show_bytes.h
 
 ####### Install
 

@@ -40,6 +40,28 @@ McfContext* McfContext::Current()
 
 MCF_STRING McfContext::GetBinFolder()
 {
+    MCF_TCHAR filePath[MAX_PATH];
+    HMODULE module=::GetModuleHandle(NULL);
+    if(module==NULL)
+    {
+       return _L("");
+    }
+    if (!::GetModuleFileName(module, filePath, MAX_PATH))
+    {
+        return _L("");
+    }
+    MCF_STRING exeFilePath = filePath;
+    MCF_STRING directory = _L("");
+    MCF_STRING fileName = _L("");
+    const size_t last_slash_idx = exeFilePath.rfind('\\');
+    if (std::string::npos != last_slash_idx)
+    {
+        directory = exeFilePath.substr(0, last_slash_idx);
+        fileName = exeFilePath.substr(last_slash_idx + 1);
+    }
+
+    return directory;
+#if 0
     MCF_TCHAR filePath[MAX_PATH];  //typedef wchar_t MCF_TCHAR; #define MAX_PATH  260
     HMODULE module=::GetModuleHandle(NULL);
     //notes:  GetModuleHandle function is get the application or dll's module handler
@@ -48,7 +70,7 @@ MCF_STRING McfContext::GetBinFolder()
     {
         return  _L("");   // if NULL not get the application module
     }
-    if(!::GetModuleFileName(module,filePath,MAX_PATH));  //get the application path
+    if(!::GetModuleFileName(module,filePath,MAX_PATH))  //get the application path
     {
         return _L("");    // if false return null
     }
@@ -66,6 +88,7 @@ MCF_STRING McfContext::GetBinFolder()
         fileName=exeFilePath.substr(last_slash_idx+1);
     }
     return directory;
+#endif
 }
 //-----------------------------------------------
 MCF_STRING McfContext::GetConfigFolder()

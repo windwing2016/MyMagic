@@ -42,4 +42,5 @@ LIBS += -L../bin  -lMcfCore
 SOURCES += main.cpp
 
 HEADERS += \
-    GetApplicationPath.h
+    GetApplicationPath.h \
+    show_bytes.h

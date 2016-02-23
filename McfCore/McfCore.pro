@@ -44,7 +44,8 @@ HEADERS += mcfcore.h\
     McfContext.h \
     IDrive.h \
     mcf/ViewModels/ViewModelbase.h \
-    mcf/ViewModels/IMessageView.h
+    mcf/ViewModels/IMessageView.h \
+    mcf/Vision/LightController.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

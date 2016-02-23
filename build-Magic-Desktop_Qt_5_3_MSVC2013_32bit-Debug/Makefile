@@ -170,6 +170,7 @@ Makefile: ..\Magic\Magic.pro ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\resolve_config.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exclusive_builds_post.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\default_post.prf \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\console.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\rtti.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\precompile_header.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\warn_on.prf \
@@ -178,14 +179,11 @@ Makefile: ..\Magic\Magic.pro ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\moc.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\opengl.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\uic.prf \
-		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\windows.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\testcase_targets.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exceptions.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\yacc.prf \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\lex.prf \
 		..\Magic\Magic.pro \
-		D:/Qt/Qt5.3.2/5.3/msvc2013/lib/qtmaind.prl \
-		D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Cored.prl \
 		D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Widgets.prl \
 		D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Network.prl \
 		D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Xml.prl \
@@ -291,6 +289,7 @@ Makefile: ..\Magic\Magic.pro ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\resolve_config.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exclusive_builds_post.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\default_post.prf:
+..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\console.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\rtti.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\precompile_header.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\warn_on.prf:
@@ -299,14 +298,11 @@ Makefile: ..\Magic\Magic.pro ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\moc.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\opengl.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\uic.prf:
-..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\windows.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\testcase_targets.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exceptions.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\yacc.prf:
 ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\lex.prf:
 ..\Magic\Magic.pro:
-D:/Qt/Qt5.3.2/5.3/msvc2013/lib/qtmaind.prl:
-D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Cored.prl:
 D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Widgets.prl:
 D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Network.prl:
 D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Xml.prl:

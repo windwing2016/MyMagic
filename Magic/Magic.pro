@@ -25,6 +25,18 @@ INCLUDEPATH +=../Toolkits/opencv_2_4_9/include/opencv2/
 DESTDIR+= ../bin
 #  DESTDIR 的作用  指定生成的应用程序放置的目录
 
+CONFIG += console
+#using console
+
+# Compiler and linker option for minidump.
+win32:CONFIG(release, debug|release) {
+   QMAKE_CXXFLAGS += /Ox /Zi /Fd"../bin/Magic.pdb"
+   #QMAKE_LFLAGS += /DEBUG /OPT:REF /OPT:ICF
+}
+
+
+LIBS += -L../bin  -lMcfCore
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     test1.cpp
@@ -34,3 +46,4 @@ HEADERS  += mainwindow.h \
     test2.h
 
 FORMS    += mainwindow.ui
+
