@@ -14,7 +14,7 @@ CXX           = cl
 DEFINES       = -DUNICODE -DWIN32 -DMCF_CORE_DLL -DMCF_CORE_DLL -D_CRT_SECURE_NO_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE
 CFLAGS        = -nologo -Zm200 -Zc:wchar_t -FS -Zi -MDd -W3 /Fd..\bin\McfCore.pdb $(DEFINES)
 CXXFLAGS      = -nologo -Zm200 -Zc:wchar_t -FS -Zi -MDd -GR -W3 -w34100 -w34189 -EHsc /Fd..\bin\McfCore.pdb $(DEFINES)
-INCPATH       = -I"..\Toolkits\boost_1_56_0" -I"..\..\.." -I"..\Toolkits\opencv_2_4_9\include" -I"..\Toolkits\opencv_2_4_9\include\opencv" -I"..\Toolkits\opencv_2_4_9\include\opencv2" -I"..\Toolkits\boost_1_56_0" -I"..\Toolkits\opencv_2_4_9" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtANGLE" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore" -I"debug" -I"." -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013"
+INCPATH       = -I"..\Toolkits\boost_1_56_0" -I"..\Toolkits\opencv_2_4_9\include" -I"..\Toolkits\opencv_2_4_9\include\opencv" -I"..\Toolkits\opencv_2_4_9\include\opencv2" -I"..\Toolkits\boost_1_56_0" -I"..\Toolkits\opencv_2_4_9" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtANGLE" -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore" -I"debug" -I"." -I"..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013"
 LINKER        = link
 LFLAGS        = /NOLOGO /DYNAMICBASE /NXCOMPAT /DEBUG /DLL
 LIBS          = /LIBPATH:..\Toolkits\boost_1_56_0\stage\lib\ ..\Toolkits\boost_1_56_0\stage\lib\\libboost_log-vc120-mt-gd-1_56.lib /LIBPATH:..\Toolkits\opencv_2_4_9\x86\vc12\lib ..\Toolkits\opencv_2_4_9\x86\vc12\lib\opencv_core249d.lib ..\Toolkits\opencv_2_4_9\x86\vc12\lib\opencv_highgui249d.lib ..\Toolkits\opencv_2_4_9\x86\vc12\lib\opencv_imgproc249d.lib /LIBPATH:D:\Qt\Qt5.3.2\5.3\msvc2013\lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Widgetsd.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Guid.lib D:\Qt\Qt5.3.2\5.3\msvc2013\lib\Qt5Cored.lib libEGLd.lib libGLESv2d.lib gdi32.lib user32.lib 
@@ -47,7 +47,9 @@ SOURCES       = ..\McfCore\mcfcore.cpp \
 		..\McfCore\mcf\ViewModels\NotifiableProperties.cpp \
 		..\McfCore\McfContext.cpp \
 		..\McfCore\mcf\ViewModels\ViewModelbase.cpp \
-		..\McfCore\mcf\ViewModels\IMessageView.cpp debug\moc_NotifiableProperties.cpp \
+		..\McfCore\mcf\ViewModels\IMessageView.cpp \
+		..\McfCore\mcf\Log\ILogger.cpp \
+		..\McfCore\mcf\Log\BoostLogger.cpp debug\moc_NotifiableProperties.cpp \
 		debug\moc_McfContext.cpp \
 		debug\moc_IDrive.cpp \
 		debug\moc_ViewModelbase.cpp
@@ -56,6 +58,8 @@ OBJECTS       = debug\mcfcore.obj \
 		debug\McfContext.obj \
 		debug\ViewModelbase.obj \
 		debug\IMessageView.obj \
+		debug\ILogger.obj \
+		debug\BoostLogger.obj \
 		debug\moc_NotifiableProperties.obj \
 		debug\moc_McfContext.obj \
 		debug\moc_IDrive.obj \
@@ -131,6 +135,26 @@ DESTDIR_TARGET = ..\bin\McfCore.dll
 	$<
 <<
 
+{..\McfCore\mcf\Log}.cpp{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\McfCore\mcf\Log}.cc{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\McfCore\mcf\Log}.cxx{debug\}.obj::
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
+{..\McfCore\mcf\Log}.c{debug\}.obj::
+	$(CC) -c $(CFLAGS) $(INCPATH) -Fodebug\ @<<
+	$<
+<<
+
 {.}.cpp{debug\}.obj::
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -Fodebug\ @<<
 	$<
@@ -182,7 +206,7 @@ dist:
 	$(ZIP) McfCore.zip $(SOURCES) $(DIST) ..\McfCore\McfCore.pro ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\spec_pre.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\common\shell-win32.conf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\qconfig.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_axbase.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_axbase_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_axcontainer.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_axcontainer_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_axserver.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_axserver_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_bluetooth.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_bluetooth_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_bootstrap_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_clucene_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_concurrent.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_concurrent_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_core.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_core_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_declarative.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_declarative_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_designer.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_designer_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_designercomponents_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_enginio.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_enginio_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_gui.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_gui_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_help.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_help_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_multimedia.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_multimedia_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_multimediawidgets.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_multimediawidgets_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_network.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_network_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_nfc.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_nfc_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_opengl.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_opengl_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_openglextensions.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_openglextensions_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_platformsupport_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_positioning.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_positioning_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_printsupport.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_printsupport_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_qml.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_qml_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_qmldevtools_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_qmltest.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_qmltest_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_quick.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_quick_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_quickparticles_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_quickwidgets.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_quickwidgets_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_script.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_script_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_scripttools.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_scripttools_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_sensors.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_sensors_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_serialport.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_serialport_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_sql.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_sql_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_svg.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_svg_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_testlib.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_testlib_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_uitools.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_uitools_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_webkit.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_webkit_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_webkitwidgets.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_webkitwidgets_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_websockets.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_websockets_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_widgets.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_widgets_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_winextras.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_winextras_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_xml.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_xml_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_xmlpatterns.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\modules\qt_lib_xmlpatterns_private.pri ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\qt_functions.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\qt_config.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\qt_config.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\win32-msvc2013\qmake.conf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\spec_post.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exclusive_builds.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\default_pre.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\default_pre.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\resolve_config.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exclusive_builds_post.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\default_post.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\build_pass.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\rtti.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\precompile_header.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\warn_on.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\qt.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\resources.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\moc.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\opengl.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\uic.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\win32\windows.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\testcase_targets.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\exceptions.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\yacc.prf ..\..\..\Qt\Qt5.3.2\5.3\msvc2013\mkspecs\features\lex.prf ..\McfCore\McfCore.pro D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Widgetsd.prl D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Guid.prl D:/Qt/Qt5.3.2/5.3/msvc2013/lib/Qt5Cored.prl D:/Qt/Qt5.3.2/5.3/msvc2013/lib/libEGLd.prl D:/Qt/Qt5.3.2/5.3/msvc2013/lib/libGLESv2d.prl  NO_PCH_SOURCES RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\mcfcore.obj debug\NotifiableProperties.obj debug\McfContext.obj debug\ViewModelbase.obj debug\IMessageView.obj debug\moc_NotifiableProperties.obj debug\moc_McfContext.obj debug\moc_IDrive.obj debug\moc_ViewModelbase.obj
+	-$(DEL_FILE) debug\mcfcore.obj debug\NotifiableProperties.obj debug\McfContext.obj debug\ViewModelbase.obj debug\IMessageView.obj debug\ILogger.obj debug\BoostLogger.obj debug\moc_NotifiableProperties.obj debug\moc_McfContext.obj debug\moc_IDrive.obj debug\moc_ViewModelbase.obj
 	-$(DEL_FILE) ..\bin\McfCore.exp ..\bin\McfCore.ilk ..\bin\McfCore.idb ..\bin\McfCore.dll.embed.manifest ..\bin\McfCore.dll_manifest.rc ..\bin\McfCore.dll_manifest.res
 
 distclean: clean 
@@ -349,7 +373,7 @@ debug\moc_NotifiableProperties.cpp: ..\McfCore\mcf.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\QImage \
 		..\McfCore\mcf\ViewModels\NotifiableProperties.h
-	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\mcf\ViewModels\NotifiableProperties.h -o debug\moc_NotifiableProperties.cpp
+	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\mcf\ViewModels\NotifiableProperties.h -o debug\moc_NotifiableProperties.cpp
 
 debug\moc_McfContext.cpp: ..\McfCore\mcf.h \
 		..\Toolkits\boost_1_56_0\boost\config\compiler\visualc.hpp \
@@ -501,7 +525,7 @@ debug\moc_McfContext.cpp: ..\McfCore\mcf.h \
 		..\McfCore\mcf\ViewModels\ViewModelbase.h \
 		..\McfCore\mcf\ViewModels\IMessageView.h \
 		..\McfCore\McfContext.h
-	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\McfContext.h -o debug\moc_McfContext.cpp
+	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\McfContext.h -o debug\moc_McfContext.cpp
 
 debug\moc_IDrive.cpp: ..\McfCore\mcf.h \
 		..\Toolkits\boost_1_56_0\boost\config\compiler\visualc.hpp \
@@ -648,7 +672,7 @@ debug\moc_IDrive.cpp: ..\McfCore\mcf.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QLocale \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		..\McfCore\IDrive.h
-	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\IDrive.h -o debug\moc_IDrive.cpp
+	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\IDrive.h -o debug\moc_IDrive.cpp
 
 debug\moc_ViewModelbase.cpp: ..\McfCore\mcf.h \
 		..\Toolkits\boost_1_56_0\boost\config\compiler\visualc.hpp \
@@ -796,7 +820,7 @@ debug\moc_ViewModelbase.cpp: ..\McfCore\mcf.h \
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
 		..\McfCore\mcf\ViewModels\IMessageView.h \
 		..\McfCore\mcf\ViewModels\ViewModelbase.h
-	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -I/ -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\mcf\ViewModels\ViewModelbase.h -o debug\moc_ViewModelbase.cpp
+	D:\Qt\Qt5.3.2\5.3\msvc2013\bin\moc.exe $(DEFINES) -D_MSC_VER=1800 -D_WIN32 -ID:/Qt/Qt5.3.2/5.3/msvc2013/mkspecs/win32-msvc2013 -ID:/MyMagic/MyMagic/McfCore -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9/include/opencv2 -ID:/MyMagic/MyMagic/Toolkits/boost_1_56_0 -ID:/MyMagic/MyMagic/Toolkits/opencv_2_4_9 -ID:/Qt/Qt5.3.2/5.3/msvc2013/include -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtWidgets -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtGui -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtANGLE -ID:/Qt/Qt5.3.2/5.3/msvc2013/include/QtCore -I. ..\McfCore\mcf\ViewModels\ViewModelbase.h -o debug\moc_ViewModelbase.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -1410,6 +1434,758 @@ debug\ViewModelbase.obj: ..\McfCore\mcf\ViewModels\ViewModelbase.cpp ..\McfCore\
 		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDebug
 
 debug\IMessageView.obj: ..\McfCore\mcf\ViewModels\IMessageView.cpp 
+
+debug\ILogger.obj: ..\McfCore\mcf\Log\ILogger.cpp ..\McfCore\mcf\Log\ILogger.h \
+		..\McfCore\mcf.h \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\visualc.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\opencv.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\core_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\types_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\core.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\version.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\operations.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\mat.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\miniflann.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\defines.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\config.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\imgproc_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\types_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\imgproc.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\photo\photo.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\photo\photo_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\video.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\tracking.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\background_segm.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\features2d\features2d.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\objdetect\objdetect.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\calib3d\calib3d.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\ml\ml.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\contrib.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\retina.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\openfabmap.hpp \
+		..\McfCore\mcfcore.h \
+		..\McfCore\mcfcore_global.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QObject \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnamespace.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobal.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qconfig.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfeatures.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsystemdetection.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qprocessordetection.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcompilerdetection.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypeinfo.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypetraits.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsysinfo.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlogging.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qflags.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbasicatomic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qgenericatomic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_msvc.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv7.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv6.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv5.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_ia64.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_mips.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_x86.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_cxx11.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_gcc.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_unix.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobalstatic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmutex.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnumeric.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstring.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qchar.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbytearray.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrefcount.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qarraydata.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringbuilder.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlist.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qalgorithms.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiterator.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreevent.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qscopedpointer.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmetatype.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvarlengtharray.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontainerfwd.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qisenum.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject_impl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QApplication \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qapplication.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreapplication.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qeventloop.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qwindowdefs.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qwindowdefs_win.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpoint.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsize.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qcursor.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qdesktopwidget.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qwidget.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmargins.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpaintdevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrect.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpalette.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qcolor.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qrgb.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringlist.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatastream.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiodevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpair.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qregexp.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringmatcher.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qbrush.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvector.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qmatrix.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpolygon.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qregion.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qline.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtransform.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpainterpath.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qimage.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpixmap.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qfont.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qfontmetrics.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qfontinfo.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qsizepolicy.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qkeysequence.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qevent.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvariant.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmap.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdebug.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtextstream.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlocale.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qset.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontiguouscache.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qurl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qurlquery.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfile.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qvector2d.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtouchdevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qguiapplication.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qinputmethod.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QLocale \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex
+
+debug\BoostLogger.obj: ..\McfCore\mcf\Log\BoostLogger.cpp ..\McfCore\mcf\Log\BoostLogger.h \
+		..\McfCore\mcf\Log\ILogger.h \
+		..\McfCore\mcf.h \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\visualc.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\opencv.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\core_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\types_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\core.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\version.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\operations.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\core\mat.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\miniflann.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\defines.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\flann\config.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\imgproc_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\types_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\imgproc\imgproc.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\photo\photo.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\photo\photo_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\video.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\tracking.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\video\background_segm.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\features2d\features2d.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\objdetect\objdetect.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\calib3d\calib3d.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\ml\ml.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui_c.h \
+		..\Toolkits\opencv_2_4_9\include\opencv2\highgui\highgui.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\contrib.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\retina.hpp \
+		..\Toolkits\opencv_2_4_9\include\opencv2\contrib\openfabmap.hpp \
+		..\McfCore\mcfcore.h \
+		..\McfCore\mcfcore_global.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QObject \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnamespace.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobal.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qconfig.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfeatures.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsystemdetection.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qprocessordetection.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcompilerdetection.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypeinfo.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtypetraits.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsysinfo.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlogging.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qflags.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbasicatomic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_bootstrap.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qgenericatomic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_msvc.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv7.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv6.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_armv5.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_ia64.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_mips.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_x86.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_cxx11.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_gcc.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qatomic_unix.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qglobalstatic.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmutex.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qnumeric.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobjectdefs_impl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstring.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qchar.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qbytearray.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrefcount.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qarraydata.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringbuilder.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlist.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qalgorithms.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiterator.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreevent.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qscopedpointer.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmetatype.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvarlengtharray.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontainerfwd.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qisenum.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qobject_impl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\QApplication \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qapplication.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcoreapplication.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qeventloop.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qwindowdefs.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qwindowdefs_win.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpoint.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsize.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qcursor.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qdesktopwidget.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qwidget.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmargins.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpaintdevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qrect.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpalette.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qcolor.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qrgb.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringlist.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatastream.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qiodevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qpair.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qregexp.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qstringmatcher.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qbrush.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvector.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qmatrix.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpolygon.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qregion.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qline.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtransform.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpainterpath.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qimage.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qpixmap.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qshareddata.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qsharedpointer_impl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qhash.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qfont.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qfontmetrics.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qfontinfo.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtWidgets\qsizepolicy.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qkeysequence.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qevent.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qvariant.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qmap.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdebug.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qtextstream.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qlocale.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qset.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qcontiguouscache.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qurl.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qurlquery.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfile.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qfiledevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qvector2d.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qtouchdevice.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qguiapplication.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtGui\qinputmethod.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QDateTime \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\qdatetime.h \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QVariant \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QString \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QLocale \
+		..\..\..\Qt\Qt5.3.2\5.3\msvc2013\include\QtCore\QMutex \
+		..\Toolkits\boost_1_56_0\boost\log\core.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\detail\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\user.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\select_compiler_config.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\nvcc.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\gcc_xml.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\cray.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\common_edg.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\comeau.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\pathscale.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\intel.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\clang.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\digitalmars.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\gcc.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\kai.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\sgi_mipspro.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\compaq_cxx.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\greenhills.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\codegear.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\borland.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\metrowerks.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\sunpro_cc.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\hp_acc.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\mpw.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\vacpp.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\compiler\pgi.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\select_stdlib_config.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\no_tr1\utility.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\stlport.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\libcomo.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\roguewave.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\libcpp.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\libstdcpp3.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\sgi.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\msl.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\posix_features.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\vacpp.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\modena.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\stdlib\dinkumware.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\select_platform_config.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\linux.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\bsd.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\solaris.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\irix.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\hpux.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\cygwin.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\win32.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\beos.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\macos.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\aix.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\amigaos.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\qnxnto.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\vxworks.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\symbian.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\cray.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\platform\vms.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\suffix.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\stringize.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\config\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\auto_link.hpp \
+		..\Toolkits\boost_1_56_0\boost\version.hpp \
+		..\Toolkits\boost_1_56_0\boost\system\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\predef\platform.h \
+		..\Toolkits\boost_1_56_0\boost\predef\platform\mingw.h \
+		..\Toolkits\boost_1_56_0\boost\predef\version_number.h \
+		..\Toolkits\boost_1_56_0\boost\predef\make.h \
+		..\Toolkits\boost_1_56_0\boost\predef\detail\test.h \
+		..\Toolkits\boost_1_56_0\boost\predef\detail\platform_detected.h \
+		..\Toolkits\boost_1_56_0\boost\predef\platform\windows_desktop.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\windows.h \
+		..\Toolkits\boost_1_56_0\boost\predef\detail\os_detected.h \
+		..\Toolkits\boost_1_56_0\boost\predef\platform\windows_store.h \
+		..\Toolkits\boost_1_56_0\boost\predef\platform\windows_phone.h \
+		..\Toolkits\boost_1_56_0\boost\predef\platform\windows_runtime.h \
+		..\Toolkits\boost_1_56_0\boost\system\api_config.hpp \
+		..\Toolkits\boost_1_56_0\boost\filesystem\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\detail\workaround.hpp \
+		..\Toolkits\boost_1_56_0\boost\thread\detail\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\thread\detail\platform.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\requires_threads.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\core\core.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\shared_ptr.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\no_tr1\memory.hpp \
+		..\Toolkits\boost_1_56_0\boost\assert.hpp \
+		..\Toolkits\boost_1_56_0\boost\current_function.hpp \
+		..\Toolkits\boost_1_56_0\boost\checked_delete.hpp \
+		..\Toolkits\boost_1_56_0\boost\core\checked_delete.hpp \
+		..\Toolkits\boost_1_56_0\boost\throw_exception.hpp \
+		..\Toolkits\boost_1_56_0\boost\exception\exception.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\shared_count.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\bad_weak_ptr.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_has_sync.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_nt.hpp \
+		..\Toolkits\boost_1_56_0\boost\detail\sp_typeinfo.hpp \
+		..\Toolkits\boost_1_56_0\boost\core\typeinfo.hpp \
+		..\Toolkits\boost_1_56_0\boost\core\demangle.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_std_atomic.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_spin.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_pool.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_std_atomic.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\yield_k.hpp \
+		..\Toolkits\boost_1_56_0\boost\predef.h \
+		..\Toolkits\boost_1_56_0\boost\predef\language.h \
+		..\Toolkits\boost_1_56_0\boost\predef\language\stdc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\language\stdcpp.h \
+		..\Toolkits\boost_1_56_0\boost\predef\language\objc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\alpha.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\arm.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\blackfin.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\convex.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\ia64.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\m68k.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\mips.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\parisc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\ppc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\pyramid.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\rs6k.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\sparc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\superh.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\sys370.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\sys390.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\x86.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\x86\32.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\x86\64.h \
+		..\Toolkits\boost_1_56_0\boost\predef\architecture\z.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\borland.h \
+		..\Toolkits\boost_1_56_0\boost\predef\detail\comp_detected.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\clang.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\comeau.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\compaq.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\diab.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\digitalmars.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\dignus.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\edg.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\ekopath.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\gcc_xml.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\gcc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\greenhills.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\hp_acc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\iar.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\ibm.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\intel.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\kai.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\llvm.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\metaware.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\metrowerks.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\microtec.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\mpw.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\palm.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\pgi.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\sgi_mipspro.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\sunpro.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\tendra.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\visualc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\compiler\watcom.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\c.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\c\_prefix.h \
+		..\Toolkits\boost_1_56_0\boost\predef\detail\_cassert.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\c\gnu.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\c\uc.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\c\vms.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\c\zos.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\_prefix.h \
+		..\Toolkits\boost_1_56_0\boost\predef\detail\_exception.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\cxx.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\dinkumware.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\libcomo.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\modena.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\msl.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\roguewave.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\sgi.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\stdcpp3.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\stlport.h \
+		..\Toolkits\boost_1_56_0\boost\predef\library\std\vacpp.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\aix.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\amigaos.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\android.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\beos.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\bsd.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\macos.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\ios.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\bsd\bsdi.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\bsd\dragonfly.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\bsd\free.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\bsd\open.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\bsd\net.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\cygwin.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\hpux.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\irix.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\linux.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\os400.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\qnxnto.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\solaris.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\unix.h \
+		..\Toolkits\boost_1_56_0\boost\predef\os\vms.h \
+		..\Toolkits\boost_1_56_0\boost\predef\other.h \
+		..\Toolkits\boost_1_56_0\boost\predef\other\endian.h \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_sync.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_pt.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_gcc_arm.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_w32.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_interlocked.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\spinlock_nt.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_pt.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_snc_ps3.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_gcc_x86.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_acc_ia64.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_gcc_ia64.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_vacpp_ppc.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_cw_ppc.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_gcc_ppc.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_gcc_mips.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_sync.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_gcc_sparc.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_w32.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_base_aix.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_counted_impl.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\quick_allocator.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\lightweight_mutex.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\lwm_nop.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\lwm_pthreads.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\lwm_win32_cs.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\type_with_alignment.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\if.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\value_wknd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\static_cast.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\workaround.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\integral.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\msvc.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\eti.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\int.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\int_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\adl_barrier.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\adl.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\intel.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\gcc.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\nttp_decl.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\nttp.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\cat.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\integral_wrapper.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\integral_c_tag.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\static_constant.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\na_spec.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\lambda_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\void_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\na.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\bool.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\bool_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\na_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\ctps.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\lambda.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\ttp.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\lambda_arity_param.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\template_arity_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\arity.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\dtp.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\params.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\preprocessor.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\comma_if.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\punctuation\comma_if.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\if.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\iif.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\logical\bool.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\facilities\empty.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\punctuation\comma.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repeat.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\repeat.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\debug\error.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\detail\auto_rec.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\detail\dmc\auto_rec.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\tuple\eat.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\inc.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\arithmetic\inc.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\enum.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\def_params_tail.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\limits\arity.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\logical\and.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\logical\bitand.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\identity.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\facilities\identity.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\empty.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\filter_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\sub.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\tuple.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\arithmetic\sub.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\arithmetic\dec.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\while.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\fold_left.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\detail\edg\fold_left.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\expr_iif.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\adt.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\detail\is_binary.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\detail\check.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\logical\compl.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\detail\dmc\fold_left.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\tuple\elem.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\facilities\overload.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\variadic\size.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\tuple\rem.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\variadic\elem.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\detail\fold_left.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\fold_right.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\detail\edg\fold_right.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\detail\fold_right.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\reverse.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\detail\edg\while.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\detail\msvc\while.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\detail\dmc\while.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\control\detail\while.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\arithmetic\add.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\overload_resolution.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\lambda_support.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\yes_no.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\arrays.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\tuple\to_list.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\tuple\size.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\for_each_i.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\for.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\detail\edg\for.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\detail\msvc\for.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\detail\dmc\for.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\detail\for.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\transform.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\list\append.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\alignment_of.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\intrinsics.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\config.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_same.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\bool_trait_def.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\template_arity_spec.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\integral_constant.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\integral_c.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\integral_c_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\bool_trait_undef.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_function.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_lvalue_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_rvalue_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\ice.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\yes_no_type.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\ice_or.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\ice_and.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\ice_not.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\ice_eq.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\false_result.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\is_function_ptr_helper.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\iterate.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\iteration\iterate.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\array\elem.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\array\data.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\array\size.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\slot\slot.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\slot\detail\def.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\enum_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\enum_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\is_function_ptr_tester.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_volatile.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\cv_traits_impl.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\remove_bounds.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\type_trait_def.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\type_trait_undef.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_abstract.hpp \
+		..\Toolkits\boost_1_56_0\boost\static_assert.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_class.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_union.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\remove_cv.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_scalar.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_arithmetic.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_integral.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_float.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_enum.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\add_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_convertible.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_array.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_void.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\add_lvalue_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\add_rvalue_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\remove_reference.hpp \
+		..\Toolkits\boost_1_56_0\boost\utility\declval.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_pointer.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_member_pointer.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_member_function_pointer.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\is_mem_fun_pointer_impl.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\is_mem_fun_pointer_tester.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_polymorphic.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\size_t_trait_def.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\size_t.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\size_t_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\detail\size_t_trait_undef.hpp \
+		..\Toolkits\boost_1_56_0\boost\type_traits\is_pod.hpp \
+		..\Toolkits\boost_1_56_0\boost\utility\addressof.hpp \
+		..\Toolkits\boost_1_56_0\boost\core\addressof.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_convertible.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\sp_nullptr_t.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\operator_bool.hpp \
+		..\Toolkits\boost_1_56_0\boost\move\core.hpp \
+		..\Toolkits\boost_1_56_0\boost\move\detail\config_begin.hpp \
+		..\Toolkits\boost_1_56_0\boost\move\detail\meta_utils.hpp \
+		..\Toolkits\boost_1_56_0\boost\move\detail\config_end.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\detail\light_function.hpp \
+		..\Toolkits\boost_1_56_0\boost\move\utility.hpp \
+		..\Toolkits\boost_1_56_0\boost\utility\explicit_operator_bool.hpp \
+		..\Toolkits\boost_1_56_0\boost\core\explicit_operator_bool.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\enum_binary_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\enum_trailing_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\repetition\enum_trailing_binary_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\utility\enable_if.hpp \
+		..\Toolkits\boost_1_56_0\boost\core\enable_if.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\or.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\use_preprocessed.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\nested_type_wknd.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\include_preprocessed.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\config\compiler.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\logical_op.hpp \
+		..\Toolkits\boost_1_56_0\boost\mpl\aux_\preprocessor\ext_params.hpp \
+		..\Toolkits\boost_1_56_0\boost\preprocessor\dec.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\detail\header.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\abi_prefix.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\detail\footer.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\abi_suffix.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\core\record.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\attribute_value_set.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\attribute_name.hpp \
+		..\Toolkits\boost_1_56_0\boost\cstdint.hpp \
+		..\Toolkits\boost_1_56_0\boost\limits.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\attribute.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\intrusive_ptr.hpp \
+		..\Toolkits\boost_1_56_0\boost\config\no_tr1\functional.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\intrusive_ref_counter.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_nt.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_std_atomic.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_spin.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_pt.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_gcc_x86.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_sync.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_win32.hpp \
+		..\Toolkits\boost_1_56_0\boost\smart_ptr\detail\atomic_count_gcc.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\detail\attribute_get_value_impl.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\attribute_value.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\utility\type_info_wrapper.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\utility\type_dispatch\type_dispatcher.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\detail\visible_type.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\value_extraction_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\fallback_policy_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\value_visitation_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\attributes\attribute_set.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\expressions\keyword_fwd.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\core\record_view.hpp \
+		..\Toolkits\boost_1_56_0\boost\detail\atomic_count.hpp \
+		..\Toolkits\boost_1_56_0\boost\log\expressions\filter.hpp
 
 debug\moc_NotifiableProperties.obj: debug\moc_NotifiableProperties.cpp 
 
