@@ -15,6 +15,9 @@
 #include <qmessagebox.h>
 #include <qmetatype.h>
 
+#include "Code/Apps/MagicA/ui/Magic2.h"
+
+
 //#include <qdebug.h>
 
 
@@ -200,8 +203,12 @@ int main(int argc, char *argv[])
     MCF_STRING binFolder=McfContext::GetBinFolder();
   //  std::wcout<<binFolder<<endl;
   //  qDebug() << binFolder;
-    MainWindow w;
-    w.show();
+//    MainWindow w;
+//    w.show();
+
+    Magic2 w;
+    w.showNormal();
+
     return a.exec();
 }
 

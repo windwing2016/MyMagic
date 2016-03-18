@@ -18,7 +18,8 @@ SOURCES += mcfcore.cpp \
     mcf/ViewModels/ViewModelbase.cpp \
     mcf/ViewModels/IMessageView.cpp \
     mcf/Log/ILogger.cpp \
-    mcf/Log/BoostLogger.cpp
+    mcf/Log/BoostLogger.cpp \
+    mcf/UI/HmiFrame.cpp
 
 DESTDIR+= ../bin
 
@@ -50,7 +51,8 @@ HEADERS += mcfcore.h\
     mcf/ViewModels/IMessageView.h \
     mcf/Vision/LightController.h \
     mcf/Log/ILogger.h \
-    mcf/Log/BoostLogger.h
+    mcf/Log/BoostLogger.h \
+    mcf/UI/HmiFrame.h
 unix {
     target.path = /usr/lib
     INSTALLS += target
