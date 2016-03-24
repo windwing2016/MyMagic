@@ -57,6 +57,10 @@ signals:
     /// \brief LoadCacheUserRequested
     ///
     void LoadCacheUserRequested(MCF_STRING & userName, MCF_STRING & password);
+public slots:
+    void Login();
+    void Cancel();
+
 public:
     StringProperty  UserName;
     StringProperty  Password;
