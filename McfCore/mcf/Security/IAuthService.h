@@ -1,0 +1,4 @@
+#ifndef IAUTHSERVICE_H
+#define IAUTHSERVICE_H
+
+#endif // IAUTHSERVICE_H

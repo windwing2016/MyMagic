@@ -19,7 +19,11 @@ SOURCES += mcfcore.cpp \
     mcf/ViewModels/IMessageView.cpp \
     mcf/Log/ILogger.cpp \
     mcf/Log/BoostLogger.cpp \
-    mcf/UI/HmiFrame.cpp
+    mcf/UI/HmiFrame.cpp \
+    mcf/Security/IAuthService.cpp \
+    mcf/Security/SimpleCrypt.cpp \
+    mcf/Security/User.cpp \
+    mcf/Data/DataItem.cpp
 
 DESTDIR+= ../bin
 
@@ -52,7 +56,11 @@ HEADERS += mcfcore.h\
     mcf/Vision/LightController.h \
     mcf/Log/ILogger.h \
     mcf/Log/BoostLogger.h \
-    mcf/UI/HmiFrame.h
+    mcf/UI/HmiFrame.h \
+    mcf/Security/IAuthService.h \
+    mcf/Security/SimpleCrypt.h \
+    mcf/Security/User.h \
+    mcf/Data/DataItem.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

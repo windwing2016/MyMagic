@@ -289,6 +289,117 @@ void Mcf::IntProperty::SetValue(MCF_UINT value)
     // Emit string version signal.
     emit ValueChanged(ToString());
 }
+//------------------------------------------------------------------------------------------------------
+StringProperty::StringProperty(const QString &value, QObject *parent)
+    : QObject(parent), _value(value)
+{
+}
+
+//------------------------------------------------------------------------------------------------------
+StringProperty::StringProperty(const MCF_STRING &value, QObject *parent)
+    : QObject(parent)
+{
+#ifdef UNICODE
+    _value = QString::fromStdWString(value);
+#else
+    _value = QString::fromStdString(value);
+#endif
+}
+
+//------------------------------------------------------------------------------------------------------
+StringProperty::StringProperty(const MCF_TCHAR *value, QObject *parent)
+    : QObject(parent)
+{
+#ifdef UNICODE
+    _value = QString::fromWCharArray(value);
+#else
+    _value = QString::fromLatin1(value);
+#endif
+}
+
+//------------------------------------------------------------------------------------------------------
+StringProperty::StringProperty(const StringProperty &value, QObject *parent)
+    : QObject(parent), _value(value._value)
+{
+}
+
+//------------------------------------------------------------------------------------------------------
+const QString &StringProperty::Value() const
+{
+    return _value;
+}
+
+//------------------------------------------------------------------------------------------------------
+QString StringProperty::ToString() const
+{
+    return _value;
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::operator =(const QString &value)
+{
+    SetValue(value);
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::operator =(const MCF_STRING &value)
+{
+    SetValue(value);
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::operator =(const MCF_TCHAR *value)
+{
+    SetValue(value);
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::operator =(const StringProperty &value)
+{
+    SetValue(value._value);
+}
+
+//------------------------------------------------------------------------------------------------------
+StringProperty::operator QString() const
+{
+    return Value();
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::SetValue(const QString &value)
+{
+    if (_value == value) return;
+    _value = value;
+    emit ValueChanged(value);
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::SetValue(const MCF_STRING &value)
+{
+#ifdef UNICODE
+    SetValue(QString::fromStdWString(value));
+#else
+    SetValue(QString::fromStdString(value));
+#endif
+}
+
+//------------------------------------------------------------------------------------------------------
+void StringProperty::SetValue(const MCF_TCHAR *value)
+{
+#ifdef UNICODE
+    SetValue(QString::fromWCharArray(value));
+#else
+    SetValue(QString::fromLatin1(value));
+#endif
+}
+
+//------------------------------------------------------------------------------------------------------
+void Mcf::StringProperty::SetValueNoChangeSignals(const QString &value)
+{
+    if (_value == value) return;
+    _value = value;
+}
+
 
 Test::Test()
 {
