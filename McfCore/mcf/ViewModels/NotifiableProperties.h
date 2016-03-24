@@ -132,49 +132,7 @@ private:
     char _format;
     int _precision;
 };
-//-----------------------------------------------------------------
-///
-/// \brief A notifiable string property.
-///
-class MCFC_API StringProperty : public QObject
-{
-    Q_OBJECT
 
-public:
-    StringProperty(const QString & value = "", QObject* parent = NULL);
-    StringProperty(const MCF_STRING & value, QObject* parent = NULL);
-    StringProperty(const MCF_TCHAR * value, QObject* parent = NULL);
-    StringProperty(const StringProperty & value, QObject* parent = NULL);
-
-    const QString & Value() const;
-
-    QString ToString() const;
-
-    void operator = (const QString & value);
-    void operator = (const MCF_STRING & value);
-    void operator = (const MCF_TCHAR * value);
-    void operator = (const StringProperty & value);
-
-    operator QString() const;
-
-signals:
-    void ValueChanged(const QString & value);
-
-public slots:
-    void SetValue(const QString & value);
-    void SetValue(const MCF_STRING & value);
-    void SetValue(const MCF_TCHAR* value);
-
-    ///
-    /// \brief SetValue
-    /// \param value
-    /// \only setvalue, not emit valuechange signal
-    /// \to resolve edit box cursor disply issue
-    void SetValueNoChangeSignals(const QString &value);
-
-private:
-    QString _value;
-};
 
 
 

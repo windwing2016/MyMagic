@@ -16,14 +16,7 @@ SOURCES += mcfcore.cpp \
     mcf/ViewModels/NotifiableProperties.cpp \
     McfContext.cpp \
     mcf/ViewModels/ViewModelbase.cpp \
-    mcf/ViewModels/IMessageView.cpp \
-    mcf/Log/ILogger.cpp \
-    mcf/Log/BoostLogger.cpp \
-    mcf/UI/HmiFrame.cpp \
-    mcf/Security/IAuthService.cpp \
-    mcf/Security/SimpleCrypt.cpp \
-    mcf/Security/User.cpp \
-    mcf/Data/DataItem.cpp
+    mcf/ViewModels/IMessageView.cpp
 
 DESTDIR+= ../bin
 
@@ -31,9 +24,8 @@ DESTDIR+= ../bin
 TOOLKIT_DIR=../Toolkits
 
 
-INCLUDEPATH +=$$TOOLKIT_DIR/boost_1_56_0
+INCLUDEPATH +=../Toolkits/boost_1_56_0 /
 
-# include <../Toolkits/boost_1_56_0/boost/log/core.hpp>
 
 
 DEFINES += MCF_CORE_DLL _CRT_SECURE_NO_WARNINGS
@@ -53,14 +45,7 @@ HEADERS += mcfcore.h\
     IDrive.h \
     mcf/ViewModels/ViewModelbase.h \
     mcf/ViewModels/IMessageView.h \
-    mcf/Vision/LightController.h \
-    mcf/Log/ILogger.h \
-    mcf/Log/BoostLogger.h \
-    mcf/UI/HmiFrame.h \
-    mcf/Security/IAuthService.h \
-    mcf/Security/SimpleCrypt.h \
-    mcf/Security/User.h \
-    mcf/Data/DataItem.h
+    mcf/Vision/LightController.h
 unix {
     target.path = /usr/lib
     INSTALLS += target

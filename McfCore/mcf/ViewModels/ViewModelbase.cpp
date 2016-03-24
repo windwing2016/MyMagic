@@ -10,7 +10,6 @@ IPopupViewHandler *ViewModelBase::g_popuphandler=NULL;
 //--------------------------------------------------------
 ViewModelBase::ViewModelBase(QObject *parent):QObject(parent)
 {
-
 }
 //-----------------------------------------------------------
 ViewModelBase::~ViewModelBase()

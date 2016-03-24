@@ -13,7 +13,7 @@ class MCFC_API IDriver :public QObject
     Q_OBJECT
 public:
     IDriver(QObject *parent=NULL):QObject(parent){}
-    virtual ~IDriver(){}   //???????? ??????????
+    virtual ~IDriver(){}
 
     // Initialization / uninitialization.
 

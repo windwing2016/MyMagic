@@ -4,6 +4,8 @@
 #include <QTextCodec>
 #include <../McfCore/McfContext.h>
 #include <QDebug>
+<<<<<<< HEAD
+=======
 #include <../Toolkits/boost_1_56_0/boost/shared_ptr.hpp>
 #include <../Toolkits/boost_1_56_0/boost/format.hpp>
 #include <../Toolkits/boost_1_56_0/boost/property_tree/ptree.hpp>
@@ -18,6 +20,7 @@
 #include "Code/Apps/MagicA/ui/Magic2.h"
 
 
+>>>>>>> origin/master
 //#include <qdebug.h>
 
 
@@ -38,6 +41,9 @@ void Call_GetBinFolder()
    MCF_STRING directory=McfContext::GetBinFolder();
    std::wcout<<directory<<endl;
 }
+<<<<<<< HEAD
+
+=======
 //-----------------------------------
 MCF_BOOL EnsureSingleInstance()
 {
@@ -52,6 +58,7 @@ MCF_BOOL EnsureSingleInstance()
 
 
 //-------------------------------------------
+>>>>>>> origin/master
 
 int main(int argc, char *argv[])
 {
@@ -89,6 +96,53 @@ int main(int argc, char *argv[])
          //Load boot settings
          MCF_STRING bootFile=configFolder+_L("\\boot.settings");
          MCF_IFSTREAM fs(bootFile);
+<<<<<<< HEAD
+
+
+
+      //  std::wcout<<binFolder<<endl;
+      //qDebug() << "binFolder";
+        // qDebug(&binFolder);
+
+    }
+    catch(int & errorCode)
+    {
+        QString error;
+        switch (errorCode)
+        {
+        case ERR_NO_SYS_PATHS:
+            error = QObject::tr("Cannot find one or more system paths.");
+            break;
+
+        case ERR_NO_CONTEXT_LIB:
+            error = QObject::tr("No context library specified.");
+            break;
+
+        case ERR_NO_CONTEXT_PROC:
+            error = QObject::tr("No context procedure specified.");
+            break;
+
+        case ERR_CANNOT_LOAD_CONTEXT_LIB:
+            error = QObject::tr("Cannot load context library.");
+            break;
+
+        case ERR_CANNOT_FIND_CONTEXT_PROC:
+            error = QObject::tr("Cannot find context factory procedure from the specified library.");
+            break;
+
+        case ERR_NULL_CONTEXT:
+            error = QObject::tr("Null context created by the specified factory procedure.");
+            break;
+
+        case ERR_MULTI_MAGIC_INSTANCE:
+            error = QObject::tr("There is another Magic instance already running.");
+            break;
+
+        case ERR_LOG_SYS_FAILED:
+            error = QObject::tr("Failed to initialize logging system.");
+            break;
+        }
+=======
          boost::property_tree::wptree  ppt;
          boost::property_tree::xml_parser::read_xml(fs,ppt);
 
@@ -146,6 +200,7 @@ int main(int argc, char *argv[])
          ILogger::LogInfo(QString("Log Level = %1").arg(QString::fromStdWString(logLevel)));
 
       // Use factory method to create corresponding context.
+>>>>>>> origin/master
 
     }
     catch(int & errorCode)
@@ -157,6 +212,19 @@ int main(int argc, char *argv[])
             error = QObject::tr("Cannot find one or more system paths.");
             break;
 
+<<<<<<< HEAD
+//    catch(...)
+//    {
+
+//    }
+#endif
+    //get configuration folder
+    MCF_STRING binFolder=McfContext::GetBinFolder();
+  //  std::wcout<<binFolder<<endl;
+  //  qDebug() << binFolder;
+    MainWindow w;
+    w.show();
+=======
         case ERR_NO_CONTEXT_LIB:
             error = QObject::tr("No context library specified.");
             break;
@@ -164,6 +232,7 @@ int main(int argc, char *argv[])
         case ERR_NO_CONTEXT_PROC:
             error = QObject::tr("No context procedure specified.");
             break;
+>>>>>>> origin/master
 
         case ERR_CANNOT_LOAD_CONTEXT_LIB:
             error = QObject::tr("Cannot load context library.");
